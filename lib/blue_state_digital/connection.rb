@@ -48,7 +48,7 @@ module BlueStateDigital
     end
 
     def compute_hmac(path, api_ts, params)
-      signing_string = [@api_id, api_ts, path, params.map { |k,v| "#{k.to_s}=#{v.to_s}" }.join('&')].join("\n")
+      signing_string = [@api_id, api_ts, path, params.sort.map { |k,v| "#{k.to_s}=#{v.to_s}" }.join('&')].join("\n")
       OpenSSL::HMAC.hexdigest('sha1', @api_secret, signing_string)
     end
 
